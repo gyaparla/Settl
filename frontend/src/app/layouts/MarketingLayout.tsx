@@ -1,9 +1,8 @@
-import React from "react";
 import Header from "../../features/marketing/components/Header";
 import Footer from "../../features/marketing/components/Footer";
 import { Outlet } from "react-router-dom";
 
-const MarketingLayout: React.FC = () => {
+const MarketingLayout = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />

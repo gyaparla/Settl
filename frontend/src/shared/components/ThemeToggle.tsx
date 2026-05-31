@@ -1,7 +1,6 @@
 import { Moon } from "lucide-react";
-import React from "react";
 
-const ThemeToggle: React.FC = () => {
+const ThemeToggle = () => {
   return (
     <div>
       <Moon />

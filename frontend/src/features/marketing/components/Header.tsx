@@ -1,11 +1,10 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTENAMES } from "../../../app/routes/routePaths";
 import Button from "../../../shared/components/Button";
 import AppLogo from "../../../shared/components/AppLogo";
 import ThemeToggle from "../../../shared/components/ThemeToggle";
 
-const Header: React.FC = () => {
+const Header = () => {
   const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/60">
@@ -24,9 +23,6 @@ const Header: React.FC = () => {
           </li>
           <li className="hover:text-foreground transition-colors">
             <a href="#faq">FAQ</a>
-          </li>
-          <li className="hover:text-foreground transition-colors">
-            <a href="#">Blog</a>
           </li>
         </ul>
         <div className="flex items-center gap-2">

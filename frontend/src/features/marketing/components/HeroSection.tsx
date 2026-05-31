@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "../../../shared/components/Button";
 import { Link } from "react-router-dom";
 import { ROUTENAMES } from "../../../app/routes/routePaths";
@@ -7,7 +6,7 @@ import { motion } from "framer-motion";
 import { fadeUp } from "../../../shared/lib/utils";
 import ProductPreview from "./ProductPreview";
 
-const HeroSection: React.FC = () => {
+const HeroSection = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-hero">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32">

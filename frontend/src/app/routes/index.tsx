@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import MarketingLayout from "../layouts/MarketingLayout";
 import LandingPage from "../../features/marketing/pages/LandingPage";
 import AuthLayout from "../layouts/AuthLayout";
+import LoginPage from "../../features/auth/pages/LoginPage";
+import SignUpPage from "../../features/auth/pages/SignUpPage";
+import ForgotPassword from "../../features/auth/pages/ForgotPassword";
 
 const router = createBrowserRouter([
   // Marketing Routes
@@ -22,11 +25,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        element: <h1>Login Pahe</h1>,
+        element: <LoginPage />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
       },
       {
         path: "signup",
-        element: <h1>Sign up Pahe</h1>,
+        element: <SignUpPage />,
       },
     ],
   },

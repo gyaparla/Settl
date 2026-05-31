@@ -1,5 +1,3 @@
-import React from "react";
-
 // const faqs = [
 //   {
 //     q: "Is Settl free?",
@@ -19,7 +17,7 @@ import React from "react";
 //   },
 // ];
 
-const Faq: React.FC = () => {
+const Faq = () => {
   return (
     <section id="faq" className="py-24 lg:py-32">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">

@@ -1,6 +1,4 @@
-import React from "react";
-
-const AppLayout: React.FC = () => {
+const AppLayout = () => {
   return <div>App Layout</div>;
 };
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 const steps = [
   {
     step: "01",
@@ -18,14 +16,14 @@ const steps = [
   },
 ];
 
-const HowitWorks: React.FC = () => {
+const HowitWorks = () => {
   return (
     <section id="how" className="py-24 lg:py-32 bg-muted/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
           <span className="text-sm font-medium text-primary">How it works</span>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">
-            Three steps. Zero awkwardness.
+            Simple. Fast. Effective
           </h2>
         </div>
         <div className="mt-10 grid md:grid-cols-3 gap-5">

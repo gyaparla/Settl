@@ -6,7 +6,6 @@ import {
   Users,
   Wallet,
 } from "lucide-react";
-import React from "react";
 
 const features = [
   {
@@ -41,7 +40,7 @@ const features = [
   },
 ];
 
-const ProductFeatures: React.FC = () => {
+const ProductFeatures = () => {
   return (
     <section id="features" className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -60,7 +59,7 @@ const ProductFeatures: React.FC = () => {
             return (
               <div
                 key={index}
-                className="group rounded-2xl border bg-gradient-card p-4 hover:shadow-card transition-all"
+                className="group rounded-2xl border bg-gradient-card p-4 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-xl bg-gradient-primary grid place-items-center text-primary-foreground shadow-glow group-hover:scale-105 transition-transform">
                   <feature.icon className="w-5 h-5" />

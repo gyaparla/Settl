@@ -1,10 +1,9 @@
-import React from "react";
 import Button from "../../../shared/components/Button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ROUTENAMES } from "../../../app/routes/routePaths";
 
-const BottonCTA: React.FC = () => {
+const BottonCTA = () => {
   return (
     <section className="py-24 lg:py-32">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -18,11 +17,13 @@ const BottonCTA: React.FC = () => {
             aria-hidden
           />
           <h2 className="relative text-3xl sm:text-4xl font-bold tracking-tight text-primary-foreground">
-            Stop chasing friends for money.
+            Ready to simplify
+            <br />
+            your shared expenses?
           </h2>
-          <p className="relative mt-4 text-primary-foreground/80 max-w-lg mx-auto">
-            Join thousands using Settl to keep their groups balanced - and their
-            friendships intact.
+          <p className="relative mt-4 text-primary-foreground/80 max-w-xl mx-auto">
+            Join thousands of users who trust Settl for hassle-free expense
+            tracking.
           </p>
           <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button
@@ -30,7 +31,7 @@ const BottonCTA: React.FC = () => {
               className="rounded-full bg-background text-foreground hover:bg-background/90 h-12 px-7 text-base"
             >
               <Link to={ROUTENAMES.SIGNUP} className="flex items-center">
-                Get Started Free <ArrowRight className="ml-1.5 w-4 h-4" />
+                Get Started for Free <ArrowRight className="ml-1.5 w-4 h-4" />
               </Link>
             </Button>
           </div>

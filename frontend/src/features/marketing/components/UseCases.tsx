@@ -1,5 +1,4 @@
 import { Briefcase, Heart, Home, Plane } from "lucide-react";
-import React from "react";
 
 const useCaseScenarios = [
   {
@@ -23,7 +22,7 @@ const useCaseScenarios = [
     desc: "Offsites, founder dinners, client reimbursements. Clean and auditable.",
   },
 ];
-const UseCases: React.FC = () => {
+const UseCases = () => {
   return (
     <section id="use-cases" className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

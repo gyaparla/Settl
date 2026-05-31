@@ -1,5 +1,3 @@
-import React from "react";
-
 const PreviewStat = ({
   label,
   value,
@@ -57,7 +55,7 @@ function PreviewActivity({
     </div>
   );
 }
-const ProductPreview: React.FC = () => {
+const ProductPreview = () => {
   return (
     <div className="relative">
       <div

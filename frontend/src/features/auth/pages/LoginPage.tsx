@@ -1,17 +1,26 @@
-import Button from "../../../shared/components/Button";
 import { FcGoogle } from "react-icons/fc";
-import Label from "../../../shared/components/Label";
+import Button from "../../../shared/components/Button";
 import { Input } from "../../../shared/components/Input";
 import { Link } from "react-router-dom";
 import { ROUTENAMES } from "../../../app/routes/routePaths";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, type LoginFormData } from "../schemas/login.schema";
+import FormField from "../../../shared/components/FormField";
+import PasswordInput from "../../../shared/components/PasswordInput";
 
 const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onTouched",
+  });
 
-  const handleShowPassword = () => {
-    setShowPassword((prev) => !prev);
+  const loginUser = (data: LoginFormData) => {
+    console.log(data);
   };
   return (
     <div className="flex-1 grid place-items-center p-6">
@@ -21,7 +30,7 @@ const LoginPage = () => {
           log in to keep your balances in check
         </p>
         <div className="mt-8">
-          <form className="space-y-4">
+          <form className="space-y-2" onSubmit={handleSubmit(loginUser)}>
             <Button
               type="button"
               variant="outline"
@@ -39,55 +48,46 @@ const LoginPage = () => {
                 </span>
               </span>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+            <FormField
+              label="Email"
+              htmlFor="email"
+              error={errors.email?.message}
+            >
               <Input
                 id="email"
                 type="email"
-                required
                 placeholder="your@settl.app"
                 className="h-11 rounded-md mt-1"
+                {...register("email")}
               />
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
+            </FormField>
+            <FormField
+              label="Password"
+              rightElement={
                 <Link
                   to={ROUTENAMES.FORGOT}
                   className="text-sm text-muted-foreground hover:text-foreground"
                 >
                   Forgot?
                 </Link>
-              </div>
-              <div className="mt-1 flex items-center border border-input shadow-md rounded-md focus-within:ring-1 focus-within:ring-ring">
-                <Input
-                  id="password"
-                  autoComplete="new-password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  placeholder="••••••••"
-                  className="border-none shadow-none h-11 focus-visible:ring-0"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="shrink-0 px-3 hover:bg-transparent"
-                  onClick={handleShowPassword}
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </Button>
-              </div>
-            </div>
-            <p className="text-xs text-destructive">Error Message</p>
+              }
+              htmlFor="password"
+              error={errors.password?.message}
+            >
+              <PasswordInput
+                id="password"
+                autoComplete="current-password"
+                placeholder="••••••••"
+                {...register("password")}
+              />
+            </FormField>
+
             <Button
               type="submit"
+              disabled={isSubmitting}
               className="w-full h-11 rounded-xl bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow"
             >
-              Login
+              {isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
             <p className="mt-2 text-sm text-muted-foreground text-center">
               New here?&nbsp;

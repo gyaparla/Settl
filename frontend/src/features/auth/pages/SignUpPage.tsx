@@ -1,17 +1,26 @@
 import { FcGoogle } from "react-icons/fc";
 import Button from "../../../shared/components/Button";
-import Label from "../../../shared/components/Label";
 import { Input } from "../../../shared/components/Input";
 import { Link } from "react-router-dom";
 import { ROUTENAMES } from "../../../app/routes/routePaths";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signupSchema, type SignupFormData } from "../schemas/signup.schema";
+import FormField from "../../../shared/components/FormField";
+import PasswordInput from "../../../shared/components/PasswordInput";
 
 const SignUpPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignupFormData>({
+    resolver: zodResolver(signupSchema),
+    mode: "onTouched",
+  });
 
-  const handleShowPassword = () => {
-    setShowPassword((prev) => !prev);
+  const createUser = (data: SignupFormData) => {
+    console.log(data);
   };
   return (
     <div className="flex-1 grid place-items-center p-6">
@@ -23,7 +32,7 @@ const SignUpPage = () => {
           Free forever. No card needed
         </p>
         <div className="mt-8">
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(createUser)}>
             <Button
               type="button"
               variant="outline"
@@ -41,72 +50,67 @@ const SignUpPage = () => {
                 </span>
               </span>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="name">Full name</Label>
+            <FormField
+              label="Full name"
+              htmlFor="name"
+              error={errors.name?.message}
+            >
               <Input
                 id="name"
                 autoComplete="name"
                 type="text"
-                required
                 placeholder="Your name"
                 className="mt-1 h-11 rounded-md"
+                {...register("name")}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+            </FormField>
+            <FormField
+              label="Email"
+              htmlFor="email"
+              error={errors.email?.message}
+            >
               <Input
                 id="email"
                 autoComplete="email"
                 type="email"
-                required
                 placeholder="you@settl.app"
                 className="mt-1 h-11 rounded-md"
+                {...register("email")}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="mt-1 flex items-center border border-input shadow-md rounded-md focus-within:ring-1 focus-within:ring-ring">
-                <Input
-                  id="password"
-                  autoComplete="new-password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  placeholder="••••••••"
-                  className="border-none shadow-none h-11 focus-visible:ring-0"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="shrink-0 px-3 hover:bg-transparent"
-                  onClick={handleShowPassword}
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </Button>
-              </div>
-            </div>
-            <p className="text-xs text-destructive">Error Message</p>
-            <Button
-              type="submit"
-              className="w-full h-11 rounded-full bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow"
+            </FormField>
+            <FormField
+              label="Password"
+              htmlFor="password"
+              error={errors.password?.message}
             >
-              Create account
-            </Button>
-            <p className="text-center text-xs text-muted-foreground">
-              By signing up you agree to our Terms & Privacy.
-            </p>
-            <p className="text-center text-muted-foreground text-sm">
-              Already have an account?&nbsp;
-              <Link
-                to={ROUTENAMES.LOGIN}
-                className="text-primary font-medium hover:underline"
+              <PasswordInput
+                id="password"
+                autoComplete="new-password"
+                placeholder="••••••••"
+                {...register("password")}
+              />
+            </FormField>
+            <div className="space-y-2 mt-1">
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full h-11 rounded-full bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-glow"
               >
-                Login
-              </Link>
-            </p>
+                {isSubmitting ? "Creating..." : "Create account"}
+              </Button>
+              <p className="text-center text-xs text-muted-foreground">
+                By signing up you agree to our Terms & Privacy.
+              </p>
+              <p className="text-center text-muted-foreground text-sm">
+                Already have an account?&nbsp;
+                <Link
+                  to={ROUTENAMES.LOGIN}
+                  className="text-primary font-medium hover:underline"
+                >
+                  Login
+                </Link>
+              </p>
+            </div>
           </form>
         </div>
       </div>

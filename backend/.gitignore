@@ -1,2 +1,4 @@
 # Ignore rules are centralized in the root .gitignore.
 # This file is intentionally left blank.
+
+/src/generated/prisma

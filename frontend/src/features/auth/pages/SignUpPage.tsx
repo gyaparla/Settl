@@ -19,8 +19,22 @@ const SignUpPage = () => {
     mode: "onTouched",
   });
 
-  const createUser = (data: SignupFormData) => {
-    console.log(data);
+  const createUser = async (userData: SignupFormData) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await response.json();
+
+      console.log("Signup Data ===>", data);
+    } catch (err) {
+      console.log("Error while signup user:", err);
+    }
   };
   return (
     <div className="flex-1 grid place-items-center p-6">

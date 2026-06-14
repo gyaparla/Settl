@@ -1,5 +1,5 @@
 import pool from "../../config/db.config";
-import { SignupData } from "./auth.types";
+import { SignupPayload } from "./auth.schema";
 
 export const findUserByEmail = async (email: string) => {
   const query = `SELECT * FROM users WHERE email= $1`;
@@ -9,7 +9,7 @@ export const findUserByEmail = async (email: string) => {
   return result.rows[0] || null;
 };
 
-export const createUser = async (user: SignupData) => {
+export const insertUser = async (user: SignupPayload) => {
   const query = `INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING id, name, email, created_at`;
 
   const values = [user.name, user.email, user.password];

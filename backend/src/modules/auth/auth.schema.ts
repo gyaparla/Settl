@@ -1,4 +1,4 @@
-import z, { email } from "zod";
+import z from "zod";
 
 export const signUpSchema = z.object({
   name: z
@@ -17,3 +17,12 @@ export const signUpSchema = z.object({
     .regex(/[0-9]/, "Must contain at least on enumber")
     .regex(/[^A-Za-z0-9]/, "Must contain at least one special character"),
 });
+
+export type SignupPayload = z.infer<typeof signUpSchema>;
+
+export const loginSchema = z.object({
+  email: z.email("Please Enter a valid Email").trim().toLowerCase(),
+  password: z.string().min(1, "Password is required"),
+});
+
+export type LoginPayload = z.infer<typeof loginSchema>;

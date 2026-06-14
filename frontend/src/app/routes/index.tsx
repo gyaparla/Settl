@@ -5,6 +5,8 @@ import AuthLayout from "../layouts/AuthLayout";
 import LoginPage from "../../features/auth/pages/LoginPage";
 import SignUpPage from "../../features/auth/pages/SignUpPage";
 import ForgotPassword from "../../features/auth/pages/ForgotPassword";
+import AppLayout from "../layouts/AppLayout";
+import UserDashboard from "../../features/dashboard/UserDashboard";
 
 const router = createBrowserRouter([
   // Marketing Routes
@@ -39,6 +41,16 @@ const router = createBrowserRouter([
   },
 
   // Protected Routes
+  {
+    path: "/app",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "dashboard",
+        element: <UserDashboard />,
+      },
+    ],
+  },
 ]);
 
 export default router;

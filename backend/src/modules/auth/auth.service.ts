@@ -1,8 +1,8 @@
-import { hashPassword } from "../../shared/utils/password.util";
+import { hashPassword, verifyPassword } from "../../shared/utils/password.util";
 import * as authRepository from "./auth.repository";
-import { SignupData } from "./auth.types";
+import { LoginPayload, SignupPayload } from "./auth.schema";
 
-export const signUp = async (userData: SignupData) => {
+export const createUser = async (userData: SignupPayload) => {
   const existingUser = await authRepository.findUserByEmail(userData.email);
 
   if (existingUser) {
@@ -11,8 +11,29 @@ export const signUp = async (userData: SignupData) => {
 
   const hashedPassword = await hashPassword(userData.password);
 
-  return authRepository.createUser({
+  return authRepository.insertUser({
     ...userData,
     password: hashedPassword,
   });
+};
+
+export const loginUser = async (credentials: LoginPayload) => {
+  const user = await authRepository.findUserByEmail(credentials.email);
+
+  if (!user) {
+    throw new Error("Invalid email or password");
+  }
+
+  const isPasswordValid = await verifyPassword(
+    user.password,
+    credentials.password,
+  );
+
+  if (!isPasswordValid) {
+    throw new Error("Invalid email or password");
+  }
+
+  const { password, ...safeUser } = user;
+
+  return safeUser;
 };

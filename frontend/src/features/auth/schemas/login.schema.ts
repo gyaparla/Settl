@@ -12,4 +12,4 @@ export const loginSchema = z.object({
     .regex(/[^A-Za-z0-9]/, "Must contain at least one special characyer"),
 });
 
-export type LoginFormData = z.infer<typeof loginSchema>;
+export type LoginFormValues = z.infer<typeof loginSchema>;

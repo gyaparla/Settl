@@ -1,26 +1,45 @@
 import { FcGoogle } from "react-icons/fc";
 import Button from "../../../shared/components/Button";
 import { Input } from "../../../shared/components/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTENAMES } from "../../../app/routes/routePaths";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, type LoginFormData } from "../schemas/login.schema";
+import { loginSchema, type LoginFormValues } from "../schemas/login.schema";
 import FormField from "../../../shared/components/FormField";
 import PasswordInput from "../../../shared/components/PasswordInput";
+import { loginUser } from "../services/auth.service";
+import { useState } from "react";
+import axios from "axios";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [serviceError, setServiceError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>({
+  } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     mode: "onTouched",
   });
 
-  const loginUser = (data: LoginFormData) => {
-    console.log(data);
+  const handleLogin = async (credentials: LoginFormValues) => {
+    try {
+      setServiceError("");
+      const data = await loginUser(credentials);
+      console.log("Authenticated User ==>", data);
+      alert(data.message);
+      navigate(ROUTENAMES.APP.DASHBOARD);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setServiceError(
+          error.response?.data?.message ||
+            error.message ||
+            "Something went wrong",
+        );
+      }
+    }
   };
   return (
     <div className="flex-1 grid place-items-center p-6">
@@ -30,7 +49,7 @@ const LoginPage = () => {
           log in to keep your balances in check
         </p>
         <div className="mt-8">
-          <form className="space-y-2" onSubmit={handleSubmit(loginUser)}>
+          <form onSubmit={handleSubmit(handleLogin)}>
             <Button
               type="button"
               variant="outline"
@@ -81,6 +100,13 @@ const LoginPage = () => {
                 {...register("password")}
               />
             </FormField>
+            {serviceError && (
+              <div className="rounded-md border border-destructive/20 bg-destructive/10 p-2 mb-2">
+                <p className="text-sm text-destructive text-center">
+                  {serviceError}
+                </p>
+              </div>
+            )}
 
             <Button
               type="submit"

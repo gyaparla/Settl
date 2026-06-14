@@ -5,7 +5,7 @@ export const ROUTENAMES = {
   FORGOT: "/auth/forgot-password",
 
   APP: {
-    DASHBOARD: "/dashboard",
+    DASHBOARD: "/app/dashboard",
     GROUPS: "/groups",
     ACTIVITY: "/activity",
     NOTIFICATIONS: "/notificstions",

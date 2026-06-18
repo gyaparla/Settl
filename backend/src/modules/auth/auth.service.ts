@@ -1,3 +1,4 @@
+import { generateAccessToken } from "../../shared/utils/jwt.util";
 import { hashPassword, verifyPassword } from "../../shared/utils/password.util";
 import * as authRepository from "./auth.repository";
 import { LoginPayload, SignupPayload } from "./auth.schema";
@@ -32,8 +33,12 @@ export const loginUser = async (credentials: LoginPayload) => {
   if (!isPasswordValid) {
     throw new Error("Invalid email or password");
   }
+  const token = generateAccessToken(user.id);
 
   const { password, ...safeUser } = user;
 
-  return safeUser;
+  return {
+    user: safeUser,
+    token,
+  };
 };

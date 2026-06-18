@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import * as authService from "./auth.service";
 import { loginSchema, signUpSchema } from "./auth.schema";
-import { ZodError } from "zod";
+import { success, ZodError } from "zod";
 
 export const createUserHandler = async (req: Request, res: Response) => {
   try {
@@ -50,6 +50,8 @@ export const loginUserHandler = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
+    console.log(error);
+
     if (error instanceof ZodError) {
       return res.status(400).json({
         success: false,
@@ -71,4 +73,11 @@ export const loginUserHandler = async (req: Request, res: Response) => {
       message: "Internal Server Error",
     });
   }
+};
+
+export const currentUserHandler = async (req: Request, res: Response) => {
+  return res.status(200).json({
+    success: true,
+    message: "Authenticated",
+  });
 };
